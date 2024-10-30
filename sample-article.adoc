@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: sample-article.html 
+keywords:  
+summary:  
+---
+= El título de la página va aquí
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+Use esta plantilla para artículos, temas, cualquier cosa que los llame. El archivo index.adoc no tiene las palabras clave correctas para una página de artículo y su uso como plantilla puede causar problemas de publicación más adelante.
+
+
+NOTE: Elimine este archivo antes de la publicación inicial, ya que el archivo se publicará incluso si no está vinculado a la barra lateral. Después de crear algunos artículos, puede usarlos como un iniciador en su lugar.
+
+Si tus artículos estarán en una subcarpeta de contenido, tendrás que hacer dos ajustes a la notación que se muestra arriba:
+
+* `:imagesdir:../media/`
+* `permalink: folder-name/sample-article.html`
+

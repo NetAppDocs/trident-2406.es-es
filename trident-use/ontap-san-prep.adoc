@@ -1,0 +1,277 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-san-prep.html 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy 
+summary: Descubra cómo preparar un back-end de ONTAP con controladores SAN de ONTAP. 
+---
+= Prepárese para configurar el back-end con los controladores SAN de ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Conozca los requisitos y las opciones de autenticación para configurar un back-end de ONTAP con controladores SAN de ONTAP.
+
+
+
+== Requisitos
+
+Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
+
+Recuerde que también puede ejecutar más de un controlador y crear clases de almacenamiento que señalen a uno o a otro. Por ejemplo, puede configurar una `san-dev` clase que utilice `ontap-san` el controlador y una clase que utilice el `ontap-san-economy` controlador `san-default`.
+
+Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas iSCSI adecuadas. Consulte link:worker-node-prep.html["Prepare el nodo de trabajo"] para obtener más información.
+
+
+
+== Autentique el backend de ONTAP
+
+Astra Trident ofrece dos modos de autenticación de un back-end de ONTAP.
+
+* Basado en credenciales: El nombre de usuario y la contraseña de un usuario ONTAP con los permisos requeridos. Se recomienda utilizar un rol de inicio de sesión de seguridad predefinido, como, por ejemplo `admin`, o `vsadmin` para garantizar la máxima compatibilidad con las versiones de ONTAP.
+* Basado en certificados: Astra Trident también puede comunicarse con un clúster de ONTAP mediante un certificado instalado en el back-end. Aquí, la definición de backend debe contener valores codificados en Base64 del certificado de cliente, la clave y el certificado de CA de confianza si se utiliza (recomendado).
+
+
+Puede actualizar los back-ends existentes para moverse entre métodos basados en credenciales y basados en certificados. Sin embargo, solo se admite un método de autenticación a la vez. Para cambiar a un método de autenticación diferente, debe eliminar el método existente de la configuración del back-end.
+
+
+WARNING: Si intenta proporcionar *tanto credenciales como certificados*, la creación de backend fallará y se producirá un error en el que se haya proporcionado más de un método de autenticación en el archivo de configuración.
+
+
+
+=== Habilite la autenticación basada en credenciales
+
+Astra Trident requiere las credenciales a un administrador con ámbito de SVM o clúster para comunicarse con el back-end de ONTAP. Se recomienda hacer uso de roles estándar, predefinidos como `admin` o `vsadmin`. De este modo se garantiza la compatibilidad con futuras versiones de ONTAP que puedan dar a conocer API de funciones que podrán utilizarse en futuras versiones de Astra Trident. Se puede crear y utilizar una función de inicio de sesión de seguridad personalizada con Astra Trident, pero no es recomendable.
+
+Una definición de backend de ejemplo tendrá este aspecto:
+
+[role="tabbed-block"]
+====
+.YAML
+--
+[listing]
+----
+---
+version: 1
+backendName: ExampleBackend
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+svm: svm_nfs
+username: vsadmin
+password: password
+----
+--
+.JSON
+--
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "ExampleBackend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password"
+}
+
+----
+--
+====
+Tenga en cuenta que la definición de backend es el único lugar en el que las credenciales se almacenan en texto sin formato. Una vez creado el back-end, los nombres de usuario y las contraseñas se codifican con Base64 y se almacenan como secretos de Kubernetes. La creación o actualización de un backend es el único paso que requiere conocimiento de las credenciales. Por tanto, es una operación de solo administración que deberá realizar el administrador de Kubernetes o almacenamiento.
+
+
+
+=== Habilite la autenticación basada en certificados
+
+Los back-ends nuevos y existentes pueden utilizar un certificado y comunicarse con el back-end de ONTAP. Se necesitan tres parámetros en la definición de backend.
+
+* ClientCertificate: Valor codificado en base64 del certificado de cliente.
+* ClientPrivateKey: Valor codificado en base64 de la clave privada asociada.
+* TrustedCACertificate: Valor codificado en base64 del certificado de CA de confianza. Si se utiliza una CA de confianza, se debe proporcionar este parámetro. Esto se puede ignorar si no se utiliza ninguna CA de confianza.
+
+
+Un flujo de trabajo típico implica los pasos siguientes.
+
+.Pasos
+. Genere una clave y un certificado de cliente. Al generar, establezca el nombre común (CN) en el usuario de ONTAP para autenticarse como.
++
+[listing]
+----
+openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout k8senv.key -out k8senv.pem -subj "/C=US/ST=NC/L=RTP/O=NetApp/CN=admin"
+----
+. Añada un certificado de CA de confianza al clúster ONTAP. Es posible que ya sea gestionado por el administrador de almacenamiento. Ignore si no se utiliza ninguna CA de confianza.
++
+[listing]
+----
+security certificate install -type server -cert-name <trusted-ca-cert-name> -vserver <vserver-name>
+ssl modify -vserver <vserver-name> -server-enabled true -client-enabled true -common-name <common-name> -serial <SN-from-trusted-CA-cert> -ca <cert-authority>
+----
+. Instale el certificado y la clave de cliente (desde el paso 1) en el clúster ONTAP.
++
+[listing]
+----
+security certificate install -type client-ca -cert-name <certificate-name> -vserver <vserver-name>
+security ssl modify -vserver <vserver-name> -client-enabled true
+----
+. Confirme que el rol de inicio de sesión de seguridad de ONTAP admite `cert` el método de autenticación.
++
+[listing]
+----
+security login create -user-or-group-name admin -application ontapi -authentication-method cert
+security login create -user-or-group-name admin -application http -authentication-method cert
+----
+. Probar la autenticación mediante un certificado generado. Reemplace <LIF de gestión de ONTAP> y <vserver name> por la IP de LIF de gestión y el nombre de SVM.
++
+[listing]
+----
+curl -X POST -Lk https://<ONTAP-Management-LIF>/servlets/netapp.servlets.admin.XMLrequest_filer --key k8senv.key --cert ~/k8senv.pem -d '<?xml version="1.0" encoding="UTF-8"?><netapp xmlns="http://www.netapp.com/filer/admin" version="1.21" vfiler="<vserver-name>"><vserver-get></vserver-get></netapp>'
+----
+. Codifique certificados, claves y certificados de CA de confianza con Base64.
++
+[listing]
+----
+base64 -w 0 k8senv.pem >> cert_base64
+base64 -w 0 k8senv.key >> key_base64
+base64 -w 0 trustedca.pem >> trustedca_base64
+----
+. Cree un backend utilizando los valores obtenidos del paso anterior.
++
+[listing]
+----
+cat cert-backend.json
+{
+"version": 1,
+"storageDriverName": "ontap-san",
+"backendName": "SanBackend",
+"managementLIF": "1.2.3.4",
+"svm": "vserver_test",
+"clientCertificate": "Faaaakkkkeeee...Vaaalllluuuueeee",
+"clientPrivateKey": "LS0tFaKE...0VaLuES0tLS0K",
+"trustedCACertificate": "QNFinfO...SiqOyN",
+"storagePrefix": "myPrefix_"
+}
+
+tridentctl create backend -f cert-backend.json -n trident
++------------+----------------+--------------------------------------+--------+---------+
+|    NAME    | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++------------+----------------+--------------------------------------+--------+---------+
+| SanBackend | ontap-san      | 586b1cd5-8cf8-428d-a76c-2872713612c1 | online |       0 |
++------------+----------------+--------------------------------------+--------+---------+
+----
+
+
+
+
+=== Actualice los métodos de autenticación o gire las credenciales
+
+Puede actualizar un back-end existente para utilizar un método de autenticación diferente o para rotar sus credenciales. Esto funciona de las dos maneras: Los back-ends que utilizan nombre de usuario/contraseña se pueden actualizar para usar certificados. Los back-ends que utilizan certificados pueden actualizarse a nombre de usuario/contraseña. Para ello, debe eliminar el método de autenticación existente y agregar el nuevo método de autenticación. A continuación, utilice el archivo backend.json actualizado que contiene los parámetros necesarios para ejecutar `tridentctl backend update`.
+
+[listing]
+----
+cat cert-backend-updated.json
+{
+"version": 1,
+"storageDriverName": "ontap-san",
+"backendName": "SanBackend",
+"managementLIF": "1.2.3.4",
+"svm": "vserver_test",
+"username": "vsadmin",
+"password": "password",
+"storagePrefix": "myPrefix_"
+}
+
+#Update backend with tridentctl
+tridentctl update backend SanBackend -f cert-backend-updated.json -n trident
++------------+----------------+--------------------------------------+--------+---------+
+|    NAME    | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++------------+----------------+--------------------------------------+--------+---------+
+| SanBackend | ontap-san      | 586b1cd5-8cf8-428d-a76c-2872713612c1 | online |       9 |
++------------+----------------+--------------------------------------+--------+---------+
+----
+
+NOTE: Cuando gira contraseñas, el administrador de almacenamiento debe actualizar primero la contraseña del usuario en ONTAP. A esto le sigue una actualización de back-end. Al rotar certificados, se pueden agregar varios certificados al usuario. A continuación, el back-end se actualiza para usar el nuevo certificado, siguiendo el cual se puede eliminar el certificado antiguo del clúster de ONTAP.
+
+La actualización de un back-end no interrumpe el acceso a los volúmenes que se han creado ni afecta a las conexiones de volúmenes realizadas después. Una actualización de back-end correcta indica que Astra Trident puede comunicarse con el back-end de ONTAP y gestionar futuras operaciones de volúmenes.
+
+
+
+== Autentica conexiones con CHAP bidireccional
+
+Astra Trident puede autenticar sesiones iSCSI con CHAP bidireccional para `ontap-san` los controladores y. `ontap-san-economy` Esto requiere la activación de `useCHAP` la opción en la definición de backend. Cuando se establece en `true`, Astra Trident configura la seguridad del iniciador predeterminado de la máquina virtual de almacenamiento como CHAP bidireccional y establece el nombre de usuario y los secretos del archivo back-end. NetApp recomienda utilizar CHAP bidireccional para autenticar las conexiones. Consulte la siguiente configuración de ejemplo:
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-san
+backendName: ontap_san_chap
+managementLIF: 192.168.0.135
+svm: ontap_iscsi_svm
+useCHAP: true
+username: vsadmin
+password: password
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
+----
+
+WARNING: El `useCHAP` parámetro es una opción booleana que puede configurarse una sola vez. De forma predeterminada, se establece en FALSE. Después de configurarlo en true, no puede establecerlo en false.
+
+Además de `useCHAP=true` los campos , `chapInitiatorSecret` , `chapTargetInitiatorSecret`, , `chapTargetUsername` y `chapUsername` deben incluirse en la definición de backend. Los secretos se pueden cambiar después de crear un backend ejecutando `tridentctl update`.
+
+
+
+=== Cómo funciona
+
+Al configurarse `useCHAP` en true, el administrador de almacenamiento le ordena a Astra Trident que configure CHAP en el back-end de almacenamiento. Esto incluye lo siguiente:
+
+* Configuración de CHAP en la SVM:
++
+** Si el tipo de seguridad de iniciador predeterminado de la SVM es none (establecido de forma predeterminada) *y* no hay LUN preexistentes ya presentes en el volumen, Astra Trident establecerá el tipo de seguridad predeterminado en `CHAP` y procederá a configurar el iniciador CHAP y el nombre de usuario y los secretos de destino.
+** Si la SVM contiene LUN, Astra Trident no habilitará CHAP en la SVM. De este modo se garantiza que no se restrinja el acceso a las LUN que ya están presentes en la SVM.
+
+
+* Configurar el iniciador de CHAP, el nombre de usuario y los secretos de destino; estas opciones deben especificarse en la configuración del back-end (como se muestra más arriba).
+
+
+Después de crear el back-end, Astra Trident crea un CRD correspondiente `tridentbackend` y almacena los secretos CHAP y los nombres de usuario como secretos de Kubernetes. Todos los VP creados por Astra Trident en este back-end se montarán y se conectan mediante CHAP.
+
+
+
+=== Rotar las credenciales y actualizar los back-ends
+
+Puede actualizar las credenciales de CHAP actualizando los parámetros CHAP en `backend.json` el archivo. Esto requerirá actualizar los secretos CHAP y utilizar `tridentctl update` el comando para reflejar estos cambios.
+
+
+WARNING: Al actualizar los secretos CHAP para un backend, debe utilizar `tridentctl` para actualizar el backend. No actualice las credenciales en el clúster de almacenamiento a través de la interfaz de usuario de CLI/ONTAP, ya que Astra Trident no podrá recoger estos cambios.
+
+[listing]
+----
+cat backend-san.json
+{
+    "version": 1,
+    "storageDriverName": "ontap-san",
+    "backendName": "ontap_san_chap",
+    "managementLIF": "192.168.0.135",
+    "svm": "ontap_iscsi_svm",
+    "useCHAP": true,
+    "username": "vsadmin",
+    "password": "password",
+    "chapInitiatorSecret": "cl9qxUpDaTeD",
+    "chapTargetInitiatorSecret": "rqxigXgkeUpDaTeD",
+    "chapTargetUsername": "iJF4heBRT0TCwxyz",
+    "chapUsername": "uh2aNCLSd6cNwxyz",
+}
+
+./tridentctl update backend ontap_san_chap -f backend-san.json -n trident
++----------------+----------------+--------------------------------------+--------+---------+
+|   NAME         | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++----------------+----------------+--------------------------------------+--------+---------+
+| ontap_san_chap | ontap-san      | aa458f3b-ad2d-4378-8a33-1a472ffbeb5c | online |       7 |
++----------------+----------------+--------------------------------------+--------+---------+
+----
+Las conexiones existentes no se verán afectadas; seguirán activas si Astra Trident actualiza las credenciales en la SVM. Las nuevas conexiones utilizarán las credenciales actualizadas y las conexiones existentes seguirán activas. Al desconectar y volver a conectar los VP antiguos, se utilizarán las credenciales actualizadas.

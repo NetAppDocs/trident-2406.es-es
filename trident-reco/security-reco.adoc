@@ -1,0 +1,68 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/security-reco.html 
+keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
+summary: Utilice las recomendaciones que se enumeran aquí para asegurarse de que su instalación de Astra Trident es segura. 
+---
+= Seguridad
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice las recomendaciones que se enumeran aquí para asegurarse de que su instalación de Astra Trident es segura.
+
+
+
+== Ejecute Astra Trident en su propio espacio de nombres
+
+Es importante evitar que las aplicaciones, los administradores de aplicaciones, los usuarios y las aplicaciones de gestión accedan a las definiciones de objetos de Astra Trident o a los pods para garantizar un almacenamiento fiable y bloquear la potencial actividad maliciosa.
+
+Para separar el resto de aplicaciones y usuarios de Astra Trident, instale siempre Astra Trident en su propio espacio de nombres de Kubernetes (`trident`). Si coloca Astra Trident en su propio espacio de nombres, solo el personal administrativo de Kubernetes tiene acceso al pod de la Astra Trident y los artefactos (como los secretos CHAP y de back-end, si corresponde) almacenados en los objetos de CRD named. Debes asegurarte de permitir solo el acceso de los administradores al espacio de nombres de Astra Trident y, por lo tanto, el acceso a `tridentctl` la aplicación.
+
+
+
+== Utilice la autenticación CHAP con los back-ends DE SAN de ONTAP
+
+Astra Trident admite la autenticación basada en CHAP para cargas de trabajo SAN de ONTAP (mediante `ontap-san` y `ontap-san-economy` controladores). NetApp recomienda utilizar CHAP bidireccional con Astra Trident para la autenticación entre un host y el back-end de almacenamiento.
+
+Para los back-ends ONTAP que utilizan controladores de almacenamiento SAN, Astra Trident puede configurar CHAP bidireccional y gestionar nombres de usuario y secretos CHAP a través de `tridentctl`. Consulte link:../trident-use/ontap-san-prep.html[""^]para comprender cómo Astra Trident configura CHAP en back-ends de ONTAP.
+
+
+
+== Utilice la autenticación CHAP con NetApp HCI y back-ends de SolidFire
+
+NetApp recomienda poner en marcha CHAP bidireccional para garantizar la autenticación entre un host y los back-ends de NetApp HCI y SolidFire. Astra Trident utiliza un objeto secreto que incluye dos contraseñas CHAP por inquilino. Cuando se instala Astra Trident, gestiona los secretos CHAP y los almacena en `tridentvolume` un objeto CR para el VP correspondiente. Al crear un VP, Astra Trident utiliza los secretos de CHAP para iniciar una sesión iSCSI y comunicarse con el sistema NetApp HCI y SolidFire a través de CHAP.
+
+
+NOTE: Los volúmenes que crea Astra Trident no están asociados con ningún grupo de acceso de volumen.
+
+
+
+== Utilice Astra Trident con NVE y NAE
+
+ONTAP de NetApp proporciona cifrado de datos en reposo para proteger los datos confidenciales en el caso de robo, devolución o reasignación de un disco. Para obtener más información, consulte link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["Configure la información general de cifrado de volúmenes de NetApp"^].
+
+* Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Astra Trident se habilitará para NAE.
+* Si NAE no está habilitado en el back-end, cualquier volumen aprovisionado en Astra Trident se habilitará NVE a menos que establezca la marca de cifrado de NVE en `false` la configuración de back-end.
+
+
+[NOTE]
+====
+Los volúmenes que se crean en Astra Trident en un back-end con la NAE habilitada deben ser NVE o NAE cifrados.
+
+* Puede establecer el indicador de cifrado de NVE `true` en la configuración de back-end de Trident para anular el cifrado NAE y usar una clave de cifrado específica por volumen.
+* Si se establece la marca de cifrado de NVE `false` en un back-end con NAE habilitado, se creará un volumen con la función NAE habilitada. No se puede deshabilitar el cifrado NAE mediante la marca de cifrado de NVE en `false`.
+
+
+====
+* Si desea crear manualmente un volumen de NVE en Astra Trident, debe establecer explícitamente la marca de cifrado de NVE en `true`.
+
+
+Para obtener más información sobre las opciones de configuración del back-end, consulte:
+
+* link:../trident-use/ontap-san-examples.html["Opciones de configuración de SAN de ONTAP"]
+* link:../trident-use/ontap-nas-examples.html["Opciones de configuración de NAS de ONTAP"]
+
