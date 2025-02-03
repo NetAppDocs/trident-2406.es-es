@@ -88,6 +88,11 @@ entries:
     url: "/trident-use/vol-custom-name.html"
   - title: Comparta volúmenes NFS en espacios de nombres
     url: "/trident-use/volume-share.html"
+  - title: Replicar volúmenes mediante SnapMirror
+    url: "/trident-use/acp-volume-replicate.html"
+    entries:
+    - title: Habilita el aprovisionador de Astra Control
+      url: "/trident-use/enable-acp.html"
   - title: Utilice Topología CSI
     url: "/trident-use/csi-topology.html"
   - title: Utilice instantáneas
