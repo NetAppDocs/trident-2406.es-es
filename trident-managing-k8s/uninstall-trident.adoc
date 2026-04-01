@@ -15,7 +15,7 @@ summary: Debe utilizar el mismo método para desinstalar Astra Trident que utili
 Debe utilizar el mismo método para desinstalar Astra Trident que utilizó para instalar Astra Trident.
 
 .Acerca de esta tarea
-* Si necesita una corrección de los errores observados después de una actualización, problemas de dependencia o una actualización fallida o incompleta, debe desinstalar Astra Trident y volver a instalar la versión anterior siguiendo las instrucciones específicas para ese link:../earlier-versions.html["versión"]. Esta es la única forma recomendada de _downgrade_ a una versión anterior.
+* Si necesitas una corrección de errores observados después de una actualización, problemas de dependencias o una actualización fallida o incompleta, debes desinstalar Astra Trident y reinstalar la versión anterior usando las instrucciones específicas para esa versión. Esta es la única forma recomendada de _downgrade_ a una versión anterior.
 * Para facilitar la actualización y la reinstalación, la desinstalación de Astra Trident no quita los CRD ni los objetos relacionados que ha creado Astra Trident. Si necesita eliminar por completo Astra Trident y todos sus datos, consulte link:../troubleshooting.html#completely-remove-astra-trident-and-crds["Elimina por completo Astra Trident y CRD"]el .
 
 
