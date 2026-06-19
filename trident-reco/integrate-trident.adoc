@@ -108,7 +108,7 @@ Nota al pie: Yesfonote:1[]: No administrado por Astra Trident Yesfootnote:2[]: A
 
 === Controladores de entorno de administración Azure NetApp Files
 
-Astra Trident utiliza `azure-netapp-files` el controlador para gestionar link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^]el servicio.
+Astra Trident utiliza el controlador  `azure-netapp-files` para gestionar el servicio link:https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Files"^].
 
 Puede encontrar más información sobre este controlador y cómo configurarlo en link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Configuración de back-end de Astra Trident para Azure NetApp Files"^].
 

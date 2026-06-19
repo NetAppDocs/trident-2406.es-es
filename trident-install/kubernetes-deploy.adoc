@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy.html 
+permalink: trident-install/kubernetes-deploy.html 
 keywords: deploy, astra trident, methods, operator, tridentctl, helm, tanzu, vmware 
 summary: 'Puedes instalar Astra Trident usando el operador Trident (manualmente o usando Helm) o con `tridentctl`. En este tema se proporciona información importante para seleccionar el proceso de instalación adecuado.' 
 ---
@@ -37,7 +37,7 @@ El uso de una configuración que no sea multivía o el uso `find_multipaths: yes
 
 Independientemente de la ruta de instalación, debe tener:
 
-* Privilegios completos en un clúster de Kubernetes compatible que ejecuta una versión compatible de Kubernetes y requisitos de funciones habilitados. Consulte la link:requirements.html["requisitos"] para obtener más detalles.
+* Privilegios completos para un clúster de Kubernetes compatible que ejecute una versión compatible de Kubernetes y con los requisitos de funciones habilitados. Revisa la link:/trident-get-started/requirements.html["requisitos"] para más detalles.
 * Acceso a un sistema de almacenamiento de NetApp compatible.
 * Capacidad para montar volúmenes de todos los nodos de trabajo de Kubernetes.
 * Un host Linux con `kubectl` (o `oc`, si está utilizando OpenShift) instalado y configurado para administrar el clúster de Kubernetes que desea utilizar.
@@ -46,7 +46,7 @@ Independientemente de la ruta de instalación, debe tener:
 
 
 
-TIP: Si no te has familiarizado con ellink:../trident-concepts/intro.html["conceptos básicos"^], ahora es un buen momento para hacerlo.
+TIP: Si aún no te has familiarizado con el link:../trident-get-started/intro.html["conceptos básicos"^], ahora es un buen momento para hacerlo.
 
 
 
@@ -58,7 +58,7 @@ Seleccione el método de instalación adecuado. También debe revisar las consid
 
 === Utilice el operador Trident
 
-Tanto si se pone en marcha manualmente como si se utiliza Helm, el operador Trident es una forma excelente de simplificar la instalación y gestionar de forma dinámica los recursos de Astra Trident. Incluso puede link:../trident-get-started/kubernetes-customize-deploy.html["Personalice la implementación del operador de Trident"]utilizar los atributos en el `TridentOrchestrator` recurso personalizado (CR).
+Tanto si se realiza la implementación manualmente como si se utiliza Helm, el operador de Trident es una forma excelente de simplificar la instalación y gestionar de forma dinámica los recursos de Astra Trident. Incluso puedes link:kubernetes-customize-deploy.html["Personalice la implementación del operador de Trident"] usando los atributos en el `TridentOrchestrator` recurso personalizado (CR).
 
 Algunas de las ventajas de usar el operador Trident son:
 
