@@ -13,6 +13,7 @@ summary: 'Al utilizar Astra Trident con Amazon FSx para ONTAP de NetApp, puedes 
 
 
 
+[[ontap-san-and-nas-driver-integration]]
 == Integración de controladores ONTAP SAN y NAS
 
 Puede crear un archivo backend con las credenciales de SVM (nombre de usuario y contraseña) almacenadas en AWS Secret Manager, como se muestra en este ejemplo:
@@ -76,6 +77,7 @@ Para obtener más información sobre la creación de back-ends, consulte estas p
 
 
 
+[[fsx-for-ontap-driver-details]]
 == FSX para ONTAP detalles del controlador
 
 Puede integrar Astra Trident con Amazon FSX para ONTAP de NetApp mediante los siguientes controladores:
@@ -91,6 +93,7 @@ Para obtener información detallada sobre el conductor, consulte link:../trident
 
 
 
+[[example-configurations]]
 == Configuraciones de ejemplo
 
 .Configuración para AWS FSx para ONTAP con administrador secreto
@@ -136,6 +139,7 @@ parameters:
 ====
 
 
+[[backend-advanced-configuration-and-examples]]
 == Configuración avanzada de backend y ejemplos
 
 Consulte la siguiente tabla para ver las opciones de configuración del back-end:
@@ -229,6 +233,7 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 |===
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Opciones de configuración de back-end para el aprovisionamiento de volúmenes
 
 Puede controlar el aprovisionamiento predeterminado mediante estas opciones en la `defaults` sección de la configuración. Para ver un ejemplo, vea los ejemplos de configuración siguientes.
@@ -262,7 +267,7 @@ Puede controlar el aprovisionamiento predeterminado mediante estas opciones en l
 | `encryption` | Habilite el cifrado de volúmenes de NetApp (NVE) en el nuevo volumen; los valores predeterminados son `false`. Para usar esta opción, debe tener una licencia para NVE y habilitarse en el clúster. Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Astra Trident estará habilitado para NAE. Para obtener más información, consulte: link:../trident-reco/security-reco.html["Cómo funciona Astra Trident con NVE y NAE"]. | `false` 
 
 
-| `luksEncryption` | Active el cifrado LUKS. Consulte link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["Usar la configuración de clave unificada de Linux (LUKS)"]. Solo SAN. | "" 
+| `luksEncryption` | Activa el cifrado LUKS. Consulta link:../trident-reco/security-luks.html["Usar la configuración de clave unificada de Linux (LUKS)"]. Solo para SAN. | "" 
 
 
 | `tieringPolicy` | Política de organización en niveles para utilizar	`none` | `snapshot-only` Para la configuración previa a ONTAP 9.5 SVM-DR 
@@ -275,6 +280,7 @@ Puede controlar el aprovisionamiento predeterminado mediante estas opciones en l
 |===
 
 
+[[prepare-to-provision-smb-volumes]]
 == Prepárese para aprovisionar los volúmenes de SMB
 
 Puede aprovisionar volúmenes SMB con `ontap-nas` el controlador. Antes de completar <<Integración de controladores ONTAP SAN y NAS>>los siguientes pasos.

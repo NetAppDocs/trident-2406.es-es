@@ -16,6 +16,7 @@ Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. 
 
 
 
+[[critical-information-about-astra-trident-24-06]]
 == Información vital sobre Astra Trident 24,06
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
@@ -33,6 +34,7 @@ El uso de una configuración que no sea multivía o el uso `find_multipaths: yes
 ====
 
 
+[[deploy-the-trident-operator-and-install-astra-trident-using-helm]]
 == Ponga en marcha el operador de Trident e instale Astra Trident con Helm
 
 Con Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Carta del timón"^]puede desplegar el operador Trident e instalar Trident en un solo paso.
@@ -40,7 +42,7 @@ Con Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-ope
 Revisa link:../trident-install/kubernetes-deploy.html["descripción general de la instalación"] para asegurarte de que cumpliste los requisitos previos de instalación y seleccionaste la opción de instalación correcta para tu entorno.
 
 .Antes de empezar
-Además de link:../trident-install/kubernetes-deploy.html#before-you-deploy["requisitos previos a la implementación"] tú necesitas link:https://v3.helm.sh/["Versión timón 3"^].
+Además de link:kubernetes-deploy.html#before-you-deploy["requisitos previos a la implementación"] tú necesitas link:https://v3.helm.sh/["Versión timón 3"^].
 
 .Pasos
 . Añada el repositorio de Astra Trident Helm:
@@ -65,6 +67,7 @@ Puede utilizar `helm list` para revisar detalles de instalación como nombre, es
 
 
 
+[[pass-configuration-data-during-install]]
 == Pasar los datos de configuración durante la instalación
 
 Existen dos formas de pasar los datos de configuración durante la instalación:
@@ -91,6 +94,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2406.0  --crea
 ----
 
 
+[[configuration-options]]
 == Opciones de configuración
 
 Esta tabla y el `values.yaml` archivo, que forma parte del diagrama Helm, proporcionan la lista de claves y sus valores predeterminados.
@@ -218,6 +222,7 @@ Esta tabla y el `values.yaml` archivo, que forma parte del diagrama Helm, propor
 |===
 
 
+[[understanding-controller-pods-and-node-pods]]
 === Descripción de los pods de la controladora y los pods de nodo
 
 Astra Trident se ejecuta como un único pod de la controladora, más un pod de nodos en cada nodo de trabajo del clúster. El pod del nodo debe ejecutarse en cualquier host en el que desee montar potencialmente un volumen Astra Trident.

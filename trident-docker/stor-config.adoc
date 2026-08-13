@@ -16,6 +16,7 @@ Consulte las opciones de configuración disponibles para las configuraciones de 
 
 
 
+[[global-configuration-options]]
 == Opciones de configuración global
 
 Estas opciones de configuración se aplican a todas las configuraciones de Astra Trident, independientemente de la plataforma de almacenamiento que se utilice.
@@ -71,6 +72,7 @@ Tamaño predeterminado opcional para los nuevos volúmenes. Valor predeterminado
 |===
 
 
+[[ontap-configuration]]
 == Configuración de ONTAP
 
 Además de los valores de configuración global anteriores, al utilizar ONTAP, están disponibles las siguientes opciones de nivel superior.
@@ -265,6 +267,7 @@ Política de organización en niveles que se debe utilizar, la opción predeterm
 |===
 
 
+[[scaling-options]]
 === Opciones de escala
 
 Los `ontap-nas` controladores y `ontap-san` crean un ONTAP FlexVol para cada volumen Docker. ONTAP admite un máximo de 1000 FlexVols por nodo del clúster con un máximo de 12,000 FlexVols. Si los requisitos de volumen de Docker se ajustan a esa limitación, `ontap-nas` el controlador es la solución NAS preferida por las funciones adicionales que ofrece FlexVols, como las copias Snapshot granulares de volumen Docker y el clonado.
@@ -293,6 +296,7 @@ Para obtener características avanzadas y una gran escala en el mismo entorno, p
 
 
 
+[[example-ontap-configuration-files]]
 === Archivos de configuración de ONTAP de ejemplo
 
 .Ejemplo de NFS para el controlador <code> ONTAP-nas</code>
@@ -411,6 +415,7 @@ Para obtener características avanzadas y una gran escala en el mismo entorno, p
 ====
 
 
+[[element-software-configuration]]
 == Configuración del software Element
 
 Además de los valores de configuración global, cuando se utiliza el software Element (HCI/SolidFire de NetApp), existen estas opciones disponibles.
@@ -465,6 +470,7 @@ Prefijo para instalaciones actualizadas de Trident. Si utilizó una versión de 
 
 
 
+[[example-element-software-configuration-file]]
 === Ejemplo del archivo de configuración del software Element
 
 [listing]

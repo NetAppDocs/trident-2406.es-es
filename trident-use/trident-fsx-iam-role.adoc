@@ -19,6 +19,7 @@ NOTE: Para autenticarse mediante un rol de AWS IAM, debe tener un clúster de Ku
 
 
 
+[[create-aws-secret-manager-secret]]
 == Crear secreto de AWS Secret Manager
 
 En este ejemplo, se crea un secreto de AWS Secret Manager para almacenar las credenciales de CSI de Astra Trident:
@@ -27,6 +28,7 @@ En este ejemplo, se crea un secreto de AWS Secret Manager para almacenar las cre
 
 
 
+[[create-iam-policy]]
 == Crear política de IAM
 
 Los siguientes ejemplos crean una política de IAM mediante la CLI de AWS:
@@ -66,6 +68,7 @@ policy.json:
 ----
 
 
+[[create-and-iam-role-for-the-service-account]]
 == Rol Crear e IAM para la cuenta de servicio
 
 En el siguiente ejemplo, se crea un rol de IAM para la cuenta de servicio en EKS:

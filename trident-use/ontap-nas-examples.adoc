@@ -16,6 +16,7 @@ Descubre cómo crear y utilizar controladores NAS de ONTAP con tu instalación d
 
 
 
+[[backend-configuration-options]]
 == Opciones de configuración del back-end
 
 Consulte la siguiente tabla para ver las opciones de configuración del back-end:
@@ -101,6 +102,7 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 |===
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Opciones de configuración de back-end para el aprovisionamiento de volúmenes
 
 Puede controlar el aprovisionamiento predeterminado mediante estas opciones en la `defaults` sección de la configuración. Para ver un ejemplo, vea los ejemplos de configuración siguientes.
@@ -156,6 +158,7 @@ NOTE: El uso de grupos de políticas de calidad de servicio con Astra Trident re
 
 
 
+[[volume-provisioning-examples]]
 === Ejemplos de aprovisionamiento de volúmenes
 
 Aquí hay un ejemplo con los valores predeterminados definidos:
@@ -204,6 +207,7 @@ Los back-ends existentes de instalaciones anteriores aprovisionan volúmenes com
 
 
 
+[[minimal-configuration-examples]]
 == Ejemplos de configuración mínima
 
 Los ejemplos siguientes muestran configuraciones básicas que dejan la mayoría de los parámetros en los valores predeterminados. Esta es la forma más sencilla de definir un back-end.
@@ -385,6 +389,7 @@ defaults: {
 ====
 
 
+[[examples-of-backends-with-virtual-pools]]
 == Ejemplos de back-ends con pools virtuales
 
 En los archivos de definición de backend de ejemplo que se muestran a continuación, se establecen valores predeterminados específicos para todos los pools de almacenamiento, como `spaceReserve` at none, `spaceAllocation` at false y `encryption` at false. Los pools virtuales se definen en la sección de almacenamiento.
@@ -567,6 +572,7 @@ storage:
 ====
 
 
+[[map-backends-to-storageclasses]]
 == Asigne los back-ends a StorageClass
 
 Las siguientes definiciones de StorageClass se refieren a <<Ejemplos de back-ends con pools virtuales>>. En este `parameters.selector` campo, cada StorageClass llama la atención sobre los pools virtuales que se pueden usar para alojar un volumen. El volumen tendrá los aspectos definidos en el pool virtual elegido.
@@ -642,6 +648,7 @@ Astra Trident decidirá qué pool virtual se selecciona y garantizará que se cu
 
 
 
+[[update-datalif-after-initial-configuration]]
 ==  `dataLIF`Actualice tras la configuración inicial
 
 Puede cambiar la LIF de datos tras la configuración inicial ejecutando el siguiente comando para proporcionar el nuevo archivo JSON back-end con LIF de datos actualizadas.

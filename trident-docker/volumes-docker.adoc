@@ -16,6 +16,7 @@ Puede crear, clonar y quitar volúmenes fácilmente mediante los comandos están
 
 
 
+[[create-a-volume]]
 == Cree un volumen
 
 * Cree un volumen con un controlador con el nombre predeterminado:
@@ -48,6 +49,7 @@ TIP: Los tamaños de volumen se expresan como cadenas que contienen un valor ent
 
 
 
+[[remove-a-volume]]
 == Quitar un volumen
 
 * Quite el volumen como cualquier otro volumen de Docker:
@@ -66,6 +68,7 @@ Realice los siguientes pasos para actualizar Astra Trident for Docker.
 
 
 
+[[clone-a-volume]]
 == Clonar un volumen
 
 Si utiliza `ontap-nas` , , , `ontap-san`, `solidfire-san` y `gcp-cvs storage drivers`, Astra Trident puede clonar volúmenes. Al utilizar `ontap-nas-flexgroup` los controladores o `ontap-nas-economy`, no se admite la clonación. La creación de un volumen nuevo a partir de un volumen existente dará como resultado la creación de una copia de Snapshot nueva.
@@ -92,6 +95,7 @@ docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_v
 
 
 
+[[example]]
 === Ejemplo
 
 [listing]
@@ -128,6 +132,7 @@ docker volume rm volFromSnap
 ----
 
 
+[[access-externally-created-volumes]]
 == Acceso a volúmenes creados externamente
 
 Puedes acceder a dispositivos de bloques creados externamente (o a sus clones) mediante contenedores usando Trident *only* si no tienen particiones y si su sistema de archivos es compatible con Astra Trident (por ejemplo: Un `ext4`-formateado `/dev/sdc1` no será accesible a través de Astra Trident).

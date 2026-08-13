@@ -16,6 +16,7 @@ Descubre cómo crear y utilizar un back-end de Element con tu instalación de As
 
 
 
+[[element-driver-details]]
 == Detalles del controlador de elementos
 
 Astra Trident proporciona `solidfire-san` el controlador de almacenamiento para comunicarse con el clúster. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
@@ -50,6 +51,7 @@ RWO, RWOP
 |===
 
 
+[[before-you-begin]]
 == Antes de empezar
 
 Necesitarás lo siguiente antes de crear un backend de elemento.
@@ -61,6 +63,7 @@ Necesitarás lo siguiente antes de crear un backend de elemento.
 
 
 
+[[backend-configuration-options]]
 == Opciones de configuración del back-end
 
 Consulte la siguiente tabla para ver las opciones de configuración del back-end:
@@ -113,6 +116,7 @@ WARNING: No lo utilice `debugTraceFlags` a menos que esté solucionando problema
 
 
 
+[[example-1-backend-configuration-for-solidfire-san-driver-with-three-volume-types]]
 == Ejemplo 1: Configuración back-end para `solidfire-san` el controlador con tres tipos de volumen
 
 Este ejemplo muestra un archivo de back-end mediante autenticación CHAP y modelado de tres tipos de volúmenes con garantías de calidad de servicio específicas. Lo más probable es que a continuación defina las clases de almacenamiento para consumir cada una de ellas mediante `IOPS` el parámetro de clase storage.
@@ -149,6 +153,7 @@ Types:
 ----
 
 
+[[example-2-backend-and-storage-class-configuration-for-solidfire-san-driver-with-virtual-pools]]
 == Ejemplo 2: Configuración de back-end y clase de almacenamiento para `solidfire-san` controlador con pools virtuales
 
 En este ejemplo, se muestra el archivo de definición del back-end configurado con pools virtuales junto con StorageClasses que les devuelve referencia.
@@ -262,6 +267,7 @@ parameters:
 ----
 
 
+[[find-more-information]]
 == Obtenga más información
 
 * link:../trident-concepts/vol-access-groups.html["Los grupos de acceso de volúmenes"^]

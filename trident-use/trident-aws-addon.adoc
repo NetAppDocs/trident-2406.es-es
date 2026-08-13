@@ -16,6 +16,7 @@ Astra Trident optimiza la gestión del almacenamiento de Amazon FSx para NetApp 
 
 
 
+[[prerequisites]]
 == Requisitos previos
 
 Asegúrate de disponer de lo siguiente antes de configurar el complemento Astra Trident para AWS EKS:
@@ -32,6 +33,7 @@ Asegúrate de disponer de lo siguiente antes de configurar el complemento Astra 
 
 
 
+[[steps]]
 == Pasos
 
 . En tu clúster de EKS Kubernetes, navega a la pestaña *Add-ons*.
@@ -71,6 +73,7 @@ image::../media/aws-eks-05.png[aws llega a 05]
 
 
 
+[[installuninstall-the-astra-trident-eks-add-on-using-cli]]
 == Instalar/desinstalar el complemento Astra Trident EKS mediante la CLI
 
 .Instale el complemento Astra Trident EKS mediante la CLI:

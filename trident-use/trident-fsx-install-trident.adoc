@@ -26,6 +26,7 @@ If you want to make use of the snapshot functionality, install the CSI snapshot 
 ----
 
 
+[[install-astra-trident-via-helm]]
 == Instala Astra Trident mediante helm
 
 . Descargue el paquete de instalador de Astra Trident
@@ -67,12 +68,14 @@ trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT
 
 
 
+[[install-astra-trident-via-the-eks-add-on]]
 == Instala Astra Trident a través del complemento EKS
 
 El complemento Astra Trident EKS incluye las últimas revisiones de seguridad, correcciones de errores y AWS lo valida para que funcione con Amazon EKS. El complemento EKS le permite garantizar de forma constante que sus clústeres de Amazon EKS sean seguros y estables y reducir la cantidad de trabajo que necesita para instalar, configurar y actualizar complementos.
 
 
 
+[[prerequisites]]
 === Requisitos previos
 
 Asegúrate de disponer de lo siguiente antes de configurar el complemento Astra Trident para AWS EKS:
@@ -89,6 +92,7 @@ Asegúrate de disponer de lo siguiente antes de configurar el complemento Astra 
 
 
 
+[[enable-the-astra-trident-add-on-for-aws]]
 === Habilita el complemento Astra Trident para AWS
 
 [role="tabbed-block"]
@@ -166,6 +170,7 @@ NOTE: Al configurar el parámetro opcional `cloudIdentity` , asegúrese de espec
 ====
 
 
+[[update-the-astra-trident-eks-add-on]]
 === Actualiza el complemento EKS de Astra Trident
 
 [role="tabbed-block"]
@@ -220,6 +225,7 @@ El siguiente ejemplo actualiza el complemento EKS:
 ====
 
 
+[[uninstallremove-the-astra-trident-eks-add-on]]
 === Desinstale/quite el complemento de Astra Trident EKS
 
 Tienes dos opciones para eliminar un complemento de Amazon EKS:

@@ -16,6 +16,7 @@ Todos los nodos de trabajadores del clúster de Kubernetes deben poder montar lo
 
 
 
+[[selecting-the-right-tools]]
 == Seleccionar las herramientas adecuadas
 
 Si está utilizando una combinación de controladores, debe instalar todas las herramientas necesarias para sus controladores. Las versiones recientes de RedHat CoreOS tienen las herramientas instaladas de forma predeterminada.
@@ -34,6 +35,7 @@ NOTE: Recomendamos ONTAP 9,12 o posterior para NVMe/TCP.
 
 
 
+[[node-service-discovery]]
 == Detección del servicio de nodos
 
 Astra Trident intenta detectar automáticamente si el nodo puede ejecutar servicios iSCSI o NFS.
@@ -57,6 +59,7 @@ tridentctl get node -o wide -n <Trident namespace>
 ----
 
 
+[[nfs-volumes]]
 == Volúmenes NFS
 
 Instale las herramientas de NFS mediante los comandos del sistema operativo. Asegúrese de que el servicio NFS se haya iniciado durante el arranque.
@@ -83,12 +86,14 @@ WARNING: Reinicie los nodos de trabajo después de instalar las herramientas NFS
 
 
 
+[[iscsi-volumes]]
 == Volúmenes iSCSI
 
 Astra Trident puede establecer automáticamente una sesión iSCSI, analizar LUN y detectar dispositivos multivía, darles formato y montarlos en un pod.
 
 
 
+[[iscsi-self-healing-capabilities]]
 === Funcionalidades de reparación automática de iSCSI
 
 En el caso de los sistemas ONTAP, Astra Trident ejecuta la reparación automática de iSCSI cada cinco minutos para:
@@ -121,6 +126,7 @@ NOTE: Por ejemplo, si los secretos CHAP se rotaban en la controladora de almacen
 
 
 
+[[install-the-iscsi-tools]]
 === Instale las herramientas iSCSI
 
 Instale las herramientas iSCSI mediante los comandos del sistema operativo.
@@ -238,6 +244,7 @@ NOTE: Para Ubuntu 18,04, debe detectar los puertos de destino con `iscsiadm` ant
 ====
 
 
+[[configure-or-disable-iscsi-self-healing]]
 === Configure o deshabilite la reparación automática de iSCSI
 
 Puede configurar los siguientes ajustes de reparación automática de iSCSI de Astra Trident para corregir sesiones obsoletas:
@@ -280,6 +287,7 @@ tridentctl install --iscsi-self-healing-interval=3m0s --iscsi-self-healing-wait-
 ====
 
 
+[[nvmetcp-volumes]]
 == Volúmenes NVMe/TCP
 
 Instale las herramientas NVMe mediante los comandos de su sistema operativo.
@@ -314,6 +322,7 @@ sudo modprobe nvme-tcp
 ====
 
 
+[[verify-installation]]
 === Verifique la instalación
 
 Después de la instalación, compruebe que cada nodo del clúster de Kubernetes tenga un NQN único mediante el comando:

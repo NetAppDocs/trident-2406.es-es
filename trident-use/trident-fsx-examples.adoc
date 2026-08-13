@@ -16,6 +16,7 @@ Obtenga información acerca de las opciones de configuración de back-end para A
 
 
 
+[[backend-configuration-options]]
 == Opciones de configuración del back-end
 
 Consulte la siguiente tabla para ver las opciones de configuración del back-end:
@@ -108,6 +109,7 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 |===
 
 
+[[update-datalif-after-initial-configuration]]
 ===  `dataLIF`Actualice tras la configuración inicial
 
 Puede cambiar la LIF de datos tras la configuración inicial ejecutando el siguiente comando para proporcionar el nuevo archivo JSON back-end con LIF de datos actualizadas.
@@ -121,6 +123,7 @@ NOTE: Si los RVP están conectados a uno o varios pods, deben recuperar todos lo
 
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Opciones de configuración de back-end para el aprovisionamiento de volúmenes
 
 Puede controlar el aprovisionamiento predeterminado mediante estas opciones en la `defaults` sección de la configuración. Para ver un ejemplo, vea los ejemplos de configuración siguientes.
@@ -167,6 +170,7 @@ Puede controlar el aprovisionamiento predeterminado mediante estas opciones en l
 |===
 
 
+[[example-configurations]]
 == Configuraciones de ejemplo
 
 .Configuración de la clase de almacenamiento para volúmenes SMB

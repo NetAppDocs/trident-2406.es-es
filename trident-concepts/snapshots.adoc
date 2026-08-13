@@ -16,6 +16,7 @@ Más información sobre cómo Astra Trident gestiona la creación de snapshots d
 
 
 
+[[learn-about-volume-snapshot-creation]]
 == Obtenga información acerca de la creación de snapshots de volúmenes
 
 * Para los `ontap-nas` `gcp-cvs` controladores , , , `ontap-san` y `azure-netapp-files`, cada volumen persistente (PV) se asigna a un FlexVol. Como resultado, las copias de Snapshot de volumen se crean como copias de Snapshot de NetApp. La tecnología Snapshot de NetApp ofrece una mayor estabilidad, escalabilidad, capacidad de recuperación y rendimiento que la tecnología snapshot de la competencia. Estas copias Snapshot son extremadamente eficientes, tanto en el tiempo necesario para crearlas como en el espacio de almacenamiento.

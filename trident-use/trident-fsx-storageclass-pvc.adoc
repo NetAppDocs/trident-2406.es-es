@@ -16,10 +16,12 @@ Configure un objeto StorageClass de Kubernetes y cree la clase de almacenamiento
 
 
 
+[[create-a-storage-class]]
 == Cree una clase de almacenamiento
 
 
 
+[[configure-a-kubernetes-storageclass-object]]
 === Configurar un objeto de Kubernetes StorageClass
 
 El https://kubernetes.io/docs/concepts/storage/storage-classes/["Objeto de Kubernetes StorageClass"^] identifica Astra Trident como el aprovisionador que se usa para esa clase indica a Astra Trident cómo aprovisionar un volumen. Por ejemplo:
@@ -41,6 +43,7 @@ Consulte el link:../trident-reference/objects.html["Objetos de Kubernetes y Trid
 
 
 
+[[create-a-storage-class]]
 === Cree una clase de almacenamiento
 
 .Pasos
@@ -63,6 +66,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 
 
+[[create-the-pv-and-pvc]]
 == Cree el VP y la RVP
 
 Un link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_Volumen persistente_"^] (VP) es un recurso de almacenamiento físico aprovisionado por el administrador del clúster en un clúster de Kubernetes.  https://kubernetes.io/docs/concepts/storage/persistent-volumes["_Claim de volumen persistente_"^]La (RVP) es una solicitud para acceder al volumen persistente en el clúster.
@@ -73,6 +77,7 @@ Después de crear el VP y la RVP, puede montar el volumen en un pod.
 
 
 
+[[sample-manifests]]
 === Manifiestos de muestra
 
 .Manifiesto de muestra de volumen persistente
@@ -141,6 +146,7 @@ storageClassName: protection-gold
 ====
 
 
+[[create-the-pv-and-pvc]]
 === Cree el VP y la RVP
 
 .Pasos
@@ -178,6 +184,7 @@ Consulte el link:../trident-reference/objects.html["Objetos de Kubernetes y Trid
 
 
 
+[[astra-trident-attributes]]
 == Atributos de Astra Trident
 
 Estos parámetros determinan qué pools de almacenamiento gestionados por Astra Trident se deben utilizar para aprovisionar volúmenes de un tipo determinado.

@@ -16,9 +16,10 @@ Antes de usar el operador Trident para actualizar Astra Trident, debe comprender
 
 
 
+[[trident-operator-upgrade-handling]]
 == Manejo de actualizaciones del operador Trident
 
-Una de las muchas link:../trident-get-install/kubernetes-deploy.html["Ventajas del uso del operador Trident"] ventajas de instalar y actualizar Astra Trident es la gestión automática de los objetos de Astra Trident y Kubernetes sin afectar a los volúmenes montados existentes. De este modo, Astra Trident permite realizar actualizaciones sin tiempo de inactividad, o link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_actualizaciones sucesivas_"^]. En concreto, el operador de Trident se comunica con el clúster de Kubernetes para:
+Una de las muchas link:../trident-install/kubernetes-deploy.html["Ventajas del uso del operador Trident"] ventajas de instalar y actualizar Astra Trident es la gestión automática de los objetos de Astra Trident y Kubernetes sin afectar a los volúmenes montados existentes. De este modo, Astra Trident permite realizar actualizaciones sin tiempo de inactividad, o link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_actualizaciones sucesivas_"^]. En concreto, el operador de Trident se comunica con el clúster de Kubernetes para:
 
 * Elimine y vuelva a crear la implementación de Trident Controller y DaemonSet de nodos.
 * Sustituya el pod de la controladora de Trident y los pods de nodos de Trident por nuevas versiones.
@@ -30,10 +31,11 @@ Una de las muchas link:../trident-get-install/kubernetes-deploy.html["Ventajas d
 
 
 
-TIP: Para obtener más información sobre la arquitectura de Astra Trident en el clúster de Kubernetes, consulta link:../trident-get-started/intro.html#astra-trident-architecture["Arquitectura de Astra Trident"].
+TIP: Para obtener más información sobre la arquitectura de Astra Trident en el clúster de Kubernetes, consulta link:../trident-get-started/architecture.html["Arquitectura de Trident"].
 
 
 
+[[operator-upgrade-workflow]]
 == Flujo de trabajo de actualización del operador
 
 Cuando inicie una actualización con el operador Trident:

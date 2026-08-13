@@ -16,6 +16,7 @@ Más información sobre las funciones que ofrece Astra Trident para la gestión 
 
 
 
+[[managing-volumes]]
 == Gestión de volúmenes
 
 Consulte los siguientes documentos para obtener más información sobre cómo se pueden gestionar los volúmenes con Astra Trident.

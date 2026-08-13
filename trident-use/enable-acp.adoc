@@ -19,7 +19,7 @@ Tu suscripción al servicio de Astra Control incluye automáticamente la licenci
 En las próximas actualizaciones de Astra Control, el aprovisionador de Astra Control reemplazará a Astra Trident como aprovisionador de almacenamiento y orquestador y será obligatorio para su uso en Astra Control. Por este motivo, se recomienda encarecidamente que los usuarios de Astra Control habiliten el aprovisionador de Astra Control. Astra Trident seguirá siendo de código abierto y se seguirá lanzando, manteniendo, admitiendo y actualizando con las nuevas funciones CSI y otras de NetApp.
 
 .¿Cómo puedo saber si debo habilitar Astra Control Provisioner?
-Si agrega un clúster a Astra Control Service que no tiene Astra Trident instalado previamente, el clúster se marcará como `Eligible`. Una vez que usted link:../get-started/add-first-cluster.html["Añada el clúster a Astra Control"], Astra Control Provisioner se habilitará automáticamente.
+Si añades un clúster a Astra Control Service en el que no se haya instalado previamente Astra Trident, el clúster se marcará como `Eligible`. Después de añadir el clúster a Astra Control, Astra Control Provisioner se habilitará automáticamente.
 
 Si su clúster no está marcado `Eligible`, se marcará `Partially eligible` debido a una de las siguientes acciones:
 
@@ -63,7 +63,7 @@ crane auth login cr.astra.netapp.io -u <account-id> -p <api-token>
 ----
 
 
-. (Solo registros personalizados) Siga estos pasos para mover la imagen a su registro personalizado. Si no está utilizando un registro, siga los pasos del operador Trident en el <<no-registry,siguiente sección>>.
+. (Solo para registros personalizados) Sigue estos pasos para trasladar la imagen a tu registro personalizado. Si no utilizas un registro, sigue los pasos del operador de Trident en el <<first-step,siguiente sección>>.
 +
 
 NOTE: Puede usar Podman en lugar de Docker para los siguientes comandos. Si se utiliza un entorno de Windows, se recomienda PowerShell.
@@ -119,13 +119,13 @@ crane copy cr.astra.netapp.io/astra/trident-acp:24.02.0 <my_custom_registry>/tri
 --
 ====
 . Determine si el método de instalación original de Astra Trident utilizó un.
-. Habilita el aprovisionamiento de Astra Control en Astra Trident con el método de instalación que solías originalmente:
+. [[primer paso]]Activa Astra Control Provisioner en Astra Trident utilizando el método de instalación que usaste originalmente:
 +
 [role="tabbed-block"]
 ====
 .Operador Astra Trident
 --
-.. https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html#step-1-download-the-trident-installer-package["Descarga el instalador de Astra Trident y extráigalo"^].
+.. https://docs.netapp.com/us-en/trident/trident-install/kubernetes-deploy-operator.html#step-1-download-the-trident-installer-package["Descarga el instalador de Astra Trident y extráigalo"^].
 .. Complete estos pasos si todavía no ha instalado Astra Trident o si ha quitado el operador de la implementación original de Astra Trident:
 +
 ... Cree el CRD:
@@ -235,7 +235,7 @@ status:
 --
 .tridentctl
 --
-.. https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html#step-1-download-the-trident-installer-package["Descarga el instalador de Astra Trident y extráigalo"^].
+.. https://docs.netapp.com/us-en/trident/trident-install/kubernetes-deploy-tridentctl.html#step-1-download-the-trident-installer-package["Descarga el instalador de Astra Trident y extráigalo"^].
 .. https://docs.netapp.com/us-en/trident/trident-managing-k8s/upgrade-tridentctl.html["Si ya tiene un Astra Trident existente, desinstálelo del clúster que lo aloja"^].
 .. Instalar Astra Trident con el aprovisionador de control de Astra habilitado (`--enable-acp=true`):
 +

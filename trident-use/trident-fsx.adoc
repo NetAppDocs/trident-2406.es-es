@@ -22,6 +22,7 @@ Al utilizar Astra Trident con Amazon FSX para ONTAP de NetApp, puede garantizar 
 
 
 
+[[requirements]]
 == Requisitos
 
 Además link:../trident-get-started/requirements.html["Requisitos de Astra Trident"]de , para integrar FSx para ONTAP con Astra Trident, necesita:
@@ -37,6 +38,7 @@ NOTE: Asegúrese de seguir los pasos de preparación de nodos necesarios para Am
 
 
 
+[[considerations]]
 == Consideraciones
 
 * Volúmenes SMB:
@@ -55,6 +57,7 @@ NOTE: Si especifica un rol de IAM en Astra Trident, puede omitir la especificaci
 
 
 
+[[authentication]]
 == Autenticación
 
 Astra Trident ofrece dos modos de autenticación.
@@ -75,6 +78,7 @@ Para obtener más información sobre cómo habilitar la autenticación, consulte
 
 
 
+[[find-more-information]]
 == Obtenga más información
 
 * https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Documentación de Amazon FSX para ONTAP de NetApp"^]

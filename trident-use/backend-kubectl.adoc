@@ -16,6 +16,7 @@ Un back-end define la relación entre Astra Trident y un sistema de almacenamien
 
 
 
+[[tridentbackendconfig]]
 == `TridentBackendConfig`
 
 `TridentBackendConfig` (`tbc`, , `tbconfig` `tbackendconfig` ) Es una interfaz CRD con nombre que le permite administrar los back-ends de Astra Trident utilizando `kubectl`. Los administradores de Kubernetes y de almacenamiento ahora pueden crear y gestionar back-ends directamente mediante la CLI de Kubernetes sin necesidad de una utilidad de línea de comandos dedicada (`tridentctl`).
@@ -72,6 +73,7 @@ TIP: Los back-ends que se crearon con `tridentctl` no tienen un objeto asociado 
 
 
 
+[[steps-overview]]
 == Descripción general de los pasos
 
 Para crear un nuevo backend mediante `kubectl`, debe hacer lo siguiente:
@@ -84,6 +86,7 @@ Después de crear un backend, puede observar su estado mediante el uso `kubectl 
 
 
 
+[[step-1-create-a-kubernetes-secret]]
 == Paso 1: Cree un secreto de Kubernetes
 
 Cree un secreto que contenga las credenciales de acceso para el back-end. Esto es único para cada servicio/plataforma de almacenamiento. Veamos un ejemplo:
@@ -187,6 +190,7 @@ El secreto creado en este paso será referenciado en `spec.credentials` el campo
 
 
 
+[[step-2-create-the-tridentbackendconfig-cr]]
 == Paso 2: Crear el `TridentBackendConfig` CR
 
 Ya está listo para crear su `TridentBackendConfig` CR. En este ejemplo, se crea un backend que utiliza `ontap-san` el controlador mediante el `TridentBackendConfig` objeto mostrado a continuación:
@@ -213,6 +217,7 @@ spec:
 ----
 
 
+[[step-3-verify-the-status-of-the-tridentbackendconfig-cr]]
 == Paso 3: Verifique el estado de la `TridentBackendConfig` CR
 
 Ahora que ha creado `TridentBackendConfig` el CR, puede verificar el estado. Consulte el siguiente ejemplo:
@@ -243,6 +248,7 @@ En esta fase, se ha creado un backend. Hay varias operaciones que, además, se p
 
 
 
+[[optional-step-4-get-more-details]]
 == (Opcional) Paso 4: Obtener más detalles
 
 Puede ejecutar el siguiente comando para obtener más información acerca de su entorno de administración:

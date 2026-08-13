@@ -16,6 +16,7 @@ Cree un volumen persistente (VP) y una reclamación de volumen persistente (RVP)
 
 
 
+[[overview]]
 == Descripción general
 
 Un link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_Volumen persistente_"^] (VP) es un recurso de almacenamiento físico aprovisionado por el administrador del clúster en un clúster de Kubernetes.  https://kubernetes.io/docs/concepts/storage/persistent-volumes["_Claim de volumen persistente_"^]La (RVP) es una solicitud para acceder al volumen persistente en el clúster.
@@ -26,6 +27,7 @@ Después de crear el VP y la RVP, puede montar el volumen en un pod.
 
 
 
+[[sample-manifests]]
 === Manifiestos de muestra
 
 .Manifiesto de muestra de volumen persistente
@@ -148,6 +150,7 @@ spec:
 ====
 
 
+[[create-the-pv-and-pvc]]
 == Cree el VP y la RVP
 
 .Pasos

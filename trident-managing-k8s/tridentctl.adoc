@@ -16,6 +16,7 @@ summary: Obtenga más información sobre trimentctl, una utilidad de línea de c
 
 
 
+[[commands-and-global-flags]]
 == Comandos e indicadores globales
 
 Puede ejecutar `tridentctl help` para obtener una lista de comandos disponibles `tridentctl` o agregar el `--help` indicador a cualquier comando para obtener una lista de opciones y indicadores para ese comando específico.
@@ -70,10 +71,12 @@ WARNING: La interfaz DE REST de Trident se puede configurar para escuchar y serv
 ====
 
 
+[[command-options-and-flags]]
 == Opciones de comando y indicadores
 
 
 
+[[create]]
 === cree
 
 Utilice `create` el comando para añadir un recurso a Astra Trident.
@@ -85,6 +88,7 @@ Opciones:: `backend`: Añadir un backend a Astra Trident.
 
 
 
+[[delete]]
 === eliminar
 
 Usa `delete` el comando para quitar uno o varios recursos de Astra Trident.
@@ -99,6 +103,7 @@ Opciones:: `backend`: Eliminar uno o varios back-ends de almacenamiento de Astra
 
 
 
+[[get]]
 === obtenga
 
 Usa `get` el comando para obtener uno o varios recursos de Astra Trident.
@@ -116,6 +121,7 @@ Indicadores:: `-h`, `--help`: Ayuda para volúmenes.
 
 
 
+[[images]]
 === imágenes
 
 Utiliza `images` banderas para imprimir una tabla de las imágenes de contenedores que Astra Trident necesita.
@@ -128,6 +134,7 @@ Indicadores:: `-h`, `--help`: Ayuda para imágenes.
 
 
 
+[[import-volume]]
 === importe volumen
 
 Use `import volume` el comando para importar un volumen existente a Astra Trident.
@@ -142,6 +149,7 @@ Indicadores:: `-f`, `--filename string`: Ruta a YAML o archivo JSON PVC.
 
 
 
+[[install]]
 === instale
 
 Utiliza `install` los indicadores para instalar Astra Trident.
@@ -169,6 +177,7 @@ Indicadores:: `--autosupport-image string`: La imagen del contenedor para la tel
 
 
 
+[[logs]]
 === registros
 
 Utiliza `logs` marcas para imprimir los registros de Astra Trident.
@@ -185,6 +194,7 @@ Indicadores:: `-a`, `--archive`: Crear un archivo de soporte con todos los regis
 
 
 
+[[send]]
 === enviar
 
 Utilice `send` el comando para enviar un recurso desde Astra Trident.
@@ -196,6 +206,7 @@ Opciones:: `autosupport`: Enviar un archivo AutoSupport a NetApp.
 
 
 
+[[uninstall]]
 === desinstalar
 
 Utiliza `uninstall` flags para desinstalar Astra Trident.
@@ -208,6 +219,7 @@ Indicadores:: `-h, --help`: Ayuda para desinstalar.
 
 
 
+[[update]]
 === actualizar
 
 Utilice `update` el comando para modificar un recurso en Astra Trident.
@@ -219,6 +231,7 @@ Opciones:: `backend`: Actualizar un backend en Astra Trident.
 
 
 
+[[update-backend-state]]
 === actualizar estado de backend
 
 Utilice `update backend state` el comando para suspender o reanudar operaciones de back-end.
@@ -295,6 +308,7 @@ userState: suspended
 ====
 
 
+[[version]]
 === versión
 
 Utilice `version` indicadores para imprimir la versión de `tridentctl` y el servicio Trident en ejecución.

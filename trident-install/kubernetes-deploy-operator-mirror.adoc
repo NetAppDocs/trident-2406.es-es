@@ -16,6 +16,7 @@ Es posible poner en marcha manualmente el operador de Trident para instalar Astr
 
 
 
+[[critical-information-about-astra-trident-24-06]]
 == Información vital sobre Astra Trident 24,06
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
@@ -33,12 +34,13 @@ El uso de una configuración que no sea multivía o el uso `find_multipaths: yes
 ====
 
 
+[[manually-deploy-the-trident-operator-and-install-trident]]
 == Implemente manualmente el operador de Trident e instale Trident
 
 Revisa link:kubernetes-deploy.html["descripción general de la instalación"] para asegurarte de que cumpliste los requisitos previos de instalación y seleccionaste la opción de instalación correcta para tu entorno.
 
 .Antes de empezar
-Inicie sesión en el host Linux y compruebe que está gestionando un funcionamiento y link:requirements.html["Clúster de Kubernetes compatible"^]que dispone de la Privileges necesaria.
+Inicia sesión en el host Linux y verifica que está gestionando un servidor que funciona y link:../trident-get-started/requirements.html["Clúster de Kubernetes compatible"^] y que tienes los privilegios necesarios.
 
 
 NOTE: Con OpenShift, use `oc` en lugar de en `kubectl` todos los ejemplos que siguen, e inicie sesión como *system:admin* primero ejecutando `oc login -u system:admin` o `oc login -u kube-admin`.
@@ -69,6 +71,7 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 === Paso 1: Descargue el paquete de instalación de Trident
 
 El paquete de instalación de Astra Trident incluye todo lo necesario para poner en marcha al operador de Trident e instalar Astra Trident. Descargue y extraiga la última versión del instalador de Trident de link:https://github.com/NetApp/trident/releases/latest["La sección _Assets_ de GitHub"^].
@@ -81,6 +84,7 @@ cd trident-installer
 ----
 
 
+[[step-2-create-the-tridentorchestrator-crd]]
 === Paso 2: Crear el `TridentOrchestrator` CRD
 
 Cree la `TridentOrchestrator` definición de recursos personalizados (CRD). Creará `TridentOrchestrator` recursos personalizados más adelante. Utilice la versión YAML de CRD adecuada en `deploy/crds` para crear el `TridentOrchestrator` CRD:
@@ -91,6 +95,7 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 ----
 
 
+[[step-3-update-the-registry-location-in-the-operator]]
 === Paso 3: Actualice la ubicación del registro en el operador
 
 En `/deploy/operator.yaml`, actualice `image: docker.io/netapp/trident-operator:24.06.0` para reflejar la ubicación del registro de imágenes. link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"]Puede estar ubicado en un registro o registros diferentes, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. Por ejemplo:
@@ -101,6 +106,7 @@ En `/deploy/operator.yaml`, actualice `image: docker.io/netapp/trident-operator:
 
 
 
+[[step-4-deploy-the-trident-operator]]
 === Paso 4: Despliegue el operador Trident
 
 El instalador de Astra Trident proporciona un archivo de paquete que se puede utilizar para instalar el operador y crear objetos asociados. El archivo de paquete es una forma sencilla de poner en marcha el operador e instalar Astra Trident con una configuración predeterminada.
@@ -154,6 +160,7 @@ IMPORTANT: Solo debe haber *una instancia* del operador en un clúster de Kubern
 
 
 
+[[step-5-update-the-image-registry-location-in-the-tridentorchestrator]]
 === Paso 5: Actualice la ubicación del registro de imágenes en el `TridentOrchestrator`
 
 link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"]Puede estar ubicado en un registro o registros diferentes, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. Actualice `deploy/crds/tridentorchestrator_cr.yaml` para agregar las especificaciones de ubicación adicionales basadas en la configuración del registro.
@@ -183,6 +190,7 @@ tridentImage: "<your-registry>/netapp/trident:24.06.0"
 ====
 
 
+[[step-6-create-the-tridentorchestrator-and-install-trident]]
 === Paso 6: Crear `TridentOrchestrator` e instalar Trident
 
 Ahora puedes crear `TridentOrchestrator` e instalar Astra Trident. Si lo desea, puede link:kubernetes-customize-deploy.html["Personalice su instalación de Trident"]utilizar los atributos de la `TridentOrchestrator` especificación. En el siguiente ejemplo se muestra una instalación donde las imágenes Trident y CSI se encuentran en diferentes registros.
@@ -235,12 +243,14 @@ Events:
 ----
 
 
+[[verify-the-installation]]
 == Compruebe la instalación
 
 Existen varias formas de verificar su instalación.
 
 
 
+[[using-tridentorchestrator-status]]
 === Utilizando `TridentOrchestrator` el estado
 
 El estado de `TridentOrchestrator` indica si la instalación se ha realizado correctamente y muestra la versión de Trident instalada. Durante la instalación, el estado de `TridentOrchestrator` cambia de `Installing` a `Installed`. Si observa `Failed` el estado y el operador es incapaz de recuperarse por sí mismo, link:../troubleshooting.html["compruebe los registros"].
@@ -273,6 +283,7 @@ El estado de `TridentOrchestrator` indica si la instalación se ha realizado cor
 |===
 
 
+[[using-pod-creation-status]]
 === Uso del estado de creación de pod
 
 Para confirmar si la instalación de Astra Trident ha finalizado, revise el estado de los pods creados:
@@ -290,6 +301,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 ----
 
 
+[[using-tridentctl]]
 === Utilizando `tridentctl`
 
 Puede utilizar `tridentctl` para comprobar la versión de Astra Trident instalada.

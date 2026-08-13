@@ -16,6 +16,7 @@ Puede actualizar Astra Trident para Docker sin que ello afecte a los volúmenes 
 
 
 
+[[upgrade]]
 == Renovar
 
 Realice los siguientes pasos para actualizar Astra Trident for Docker.
@@ -77,6 +78,7 @@ IMPORTANT: Si actualiza de una versión anterior de Astra Trident (anterior a 20
 
 
 
+[[uninstall]]
 == Desinstalar
 
 Siga estos pasos para desinstalar Astra Trident for Docker.
